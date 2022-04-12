@@ -10,35 +10,32 @@ echo "===>  Built the images of xApps"
 
 echo "-----------------------------------"
 echo "===>  Built the image of AD xApp"
-cd ~
-git clone "https://github.com/ToriRobert/ad.git" -b master
-cd ad
+
+cd ../'xApps of E Release'/ad
 docker build -t nexus3.o-ran-sc.org:10002/o-ran-sc/ric-app-ad:${AD} .
-cd ~
+cd ..
 
 echo "-----------------------------------"
 echo "===>  Built the image of RC xApp"
-cd ~
+
 git clone "https://gerrit.o-ran-sc.org/r/ric-app/rc" -b e-release
 cd rc
 docker build -t nexus3.o-ran-sc.org:10002/o-ran-sc/ric-app-rc:${RC} .
-cd ~
+cd ..
 
 echo "-----------------------------------"
 echo "===>  Built the image of TS xApp"
-cd ~
-git clone "https://github.com/ToriRobert/ts.git" -b e-release
-cd ts
+
+cd ../'xApps of E Release'/ts
 docker build -t nexus3.o-ran-sc.org:10002/o-ran-sc/ric-app-ts:${TS} .
-cd ~
+cd ..
 
 echo "-----------------------------------"
 echo "===>  Built the image of QP xApp"
-cd ~
-git clone "https://github.com/ToriRobert/qp.git" -b e-release
-cd qp
+
+cd ../'xApps of E Release'/qp
 docker build -t nexus3.o-ran-sc.org:10002/o-ran-sc/ric-app-qp:${QP} .
-cd ~
+cd ..
 
 # -----------------------------------
 echo "===>  On-boarding xApps"
@@ -49,22 +46,18 @@ export CHART_REPO_URL=http://$NODE_IP:$NODE_PORT/charts
 echo "-----------------------------------"
 echo "===>  On-boarding AD xApp"
 dms_cli onboard --config_file_path=ad/xapp-descriptor/config.json --shcema_file_path=ad/xapp-descriptor/controls.json
-rm -rf ad
 
 echo "-----------------------------------"
 echo "===>  On-boarding RC xApp"
 dms_cli onboard --config_file_path=rc/xapp-descriptor/config.json --shcema_file_path=rc/xapp-descriptor/schema.json
-rm -rf rc
 
 echo "-----------------------------------"
 echo "===>  On-boarding TS xApp"
 dms_cli onboard --config_file_path=ts/xapp-descriptor/config.json --shcema_file_path=ts/xapp-descriptor/schema.json
-rm -rf ts
 
 echo "-----------------------------------"
 echo "===>  On-boarding QP xApp"
 dms_cli onboard --config_file_path=qp/xapp-descriptor/config.json --shcema_file_path=qp/xapp-descriptor/schema.json
-rm -rf qp
 
 # -----------------------------------
 echo "======> Listing the xapp helm chart"
@@ -74,6 +67,8 @@ sleep 5
 
 # -----------------------------------
 echo "===>  Deploying xApps"
+
+cd ~
 
 echo "-----------------------------------"
 echo "===>  Deploying AD xApp"

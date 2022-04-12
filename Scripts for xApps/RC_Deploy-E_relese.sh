@@ -3,11 +3,12 @@
 RC="1.0.1"
 # -----------------------------------
 echo "===>  Built the images of xApps"
-cd ~
+
+cd ../'xApps of E Release'
 git clone "https://gerrit.o-ran-sc.org/r/ric-app/rc" -b e-release
 cd rc
 docker build -t nexus3.o-ran-sc.org:10002/o-ran-sc/ric-app-rc:${RC} .
-cd ~
+cd ..
 
 # -----------------------------------
 echo "===>  On-boarding xApps"
@@ -16,7 +17,7 @@ export NODE_PORT=$(kubectl get --namespace ricinfra -o jsonpath="{.spec.ports[0]
 export NODE_IP=$(kubectl get nodes --namespace ricinfra -o jsonpath="{.items[0].status.addresses[0].address}")
 export CHART_REPO_URL=http://$NODE_IP:$NODE_PORT/charts
 dms_cli onboard --config_file_path=rc/xapp-descriptor/config.json --shcema_file_path=rc/xapp-descriptor/schema.json
-rm -rf rc
+cd ~
 
 # -----------------------------------
 echo "======> Listing the xapp helm chart"

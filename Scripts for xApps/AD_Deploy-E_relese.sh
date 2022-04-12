@@ -5,7 +5,7 @@ AD="0.0.2"
 # -----------------------------------
 echo "===>  Built the images of xApps"
 
-cd xApps of E Release/ad
+cd ../'xApps of E Release'/ad
 docker build -t nexus3.o-ran-sc.org:10002/o-ran-sc/ric-app-ad:${AD} .
 
 # -----------------------------------
@@ -16,8 +16,8 @@ export NODE_IP=$(kubectl get nodes --namespace ricinfra -o jsonpath="{.items[0].
 export CHART_REPO_URL=http://$NODE_IP:$NODE_PORT/charts
 
 dms_cli onboard --config_file_path=xapp-descriptor/config.json --shcema_file_path=xapp-descriptor/controls.json
+cd ~
 
-rm -rf ad
 # -----------------------------------
 echo "======> Listing the xapp helm chart"
 
